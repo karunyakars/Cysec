@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help and Support Section</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            font-size: 2.5em;
+        }
+
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        nav a {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            margin-right: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            opacity: 0.6;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .active {
+            display: block;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 5px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-left: 3px solid #007bff;
+            border-radius: 5px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, textarea {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            background-color: #fff;
+        }
+
+        button[type="submit"] {
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Background video styling */
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 1; /* Optional: Adjust opacity for better text readability */
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop class="video-bg">
+        <source src="login .mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h1 style="color: white; font-family: Monaco;">Help and Support</h1>
+
+    <!-- Navigation for Help/Support sections -->
+    <nav>
+        <a onclick="showSection('faqs')">FAQs</a>
+        <a onclick="showSection('feedback')">Feedback</a>
+    </nav>
+
+    <!-- FAQs Section -->
+    <div id="faqs" class="section active">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <p class="faq-question" onclick="toggleAnswer(this)">What is the LMS used for?</p>
+            <p class="faq-answer">The LMS is used for managing and delivering online courses and educational content, allowing students and instructors to interact, submit assignments, and track progress.</p>
+        </div>
+        <div class="faq-item">
+            <p class="faq-question" onclick="toggleAnswer(this)">How do I reset my password?</p>
+            <p class="faq-answer">To reset your password, go to the login page and click on 'Forgot Password'. Follow the instructions to reset your password via email.</p>
+        </div>
+        <div class="faq-item">
+            <p class="faq-question" onclick="toggleAnswer(this)">How can I contact support?</p>
+            <p class="faq-answer">You can contact support by submitting a request through the 'Feedback' form or by emailing support@example.com.</p>
+        </div>
+        <!-- Add more FAQs as needed -->
+    </div>
+
+    <!-- Feedback Section -->
+    <div id="feedback" class="section">
+        <h2>Feedback</h2>
+        <form>
+            <label for="feedback-type">Type of Feedback:</label>
+            <select id="feedback-type" name="feedback-type">
+                <option value="general">General Feedback</option>
+                <option value="bug">Report a Bug</option>
+                <option value="feature">Feature Request</option>
+            </select>
+
+            <label for="feedback-message">Your Message:</label>
+            <textarea id="feedback-message" name="feedback-message" rows="4" cols="50" placeholder="Write your feedback here..."></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle section display
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.getElementsByClassName('section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // JavaScript to toggle FAQ answers
+        function toggleAnswer(element) {
+            var answer = element.nextElementSibling;
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

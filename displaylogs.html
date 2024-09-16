@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Report - Admin</title>
+    <style>
+        /* Background and Basic Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('studentinstructor.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .btn-download {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            display: block;
+            margin: 15px auto;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-download:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Log Report - Admin</h1>
+
+        <!-- Log Report Table -->
+        <table id="log-report-table">
+            <thead>
+                <tr>
+                    <th>Log ID</th>
+                    <th>Timestamp</th>
+                    <th>Event Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <!-- Download Buttons -->
+        <a id="download-link-csv" class="btn-download" href="#" download="log_report.csv">Download Log Report as CSV</a>
+        <a id="download-link-txt" class="btn-download" href="#" download="log_report.txt">Download Log Report as Text</a>
+    </div>
+
+    <script>
+        // Function to simulate fetching log data from the server
+        function fetchLogData() {
+            return [
+                { id: 1, timestamp: "2024-08-23 10:00:00", eventType: "Login", description: "User logged in successfully." },
+                { id: 2, timestamp: "2024-08-23 10:05:00", eventType: "File Upload", description: "User uploaded a file." },
+                { id: 3, timestamp: "2024-08-23 10:10:00", eventType: "File Download", description: "User downloaded a file." },
+                { id: 4, timestamp: "2024-08-23 10:15:00", eventType: "Logout", description: "User logged out." }
+            ];
+        }
+
+        // Function to display logs in the table
+        function displayLogs() {
+            const tableBody = document.querySelector("#log-report-table tbody");
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            const logData = fetchLogData(); // Fetch data from the server
+
+            logData.forEach((log) => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${log.id}</td>
+                    <td>${log.timestamp}</td>
+                    <td>${log.eventType}</td>
+                    <td>${log.description}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
+            // Generate CSV data and set up download link
+            generateCSV(logData);
+
+            // Generate text data and set up download link
+            generateTextFile(logData);
+        }
+
+        // Function to generate CSV data and set up download link
+        function generateCSV(logData) {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Log ID,Timestamp,Event Type,Description\n"; // CSV header
+
+            logData.forEach((log) => {
+                const row = `${log.id},${log.timestamp},${log.eventType},${log.description}`;
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const downloadLink = document.getElementById('download-link-csv');
+            downloadLink.setAttribute('href', encodedUri);
+        }
+
+        // Function to generate text data and set up download link
+        function generateTextFile(logData) {
+            let textContent = "Log Report\n\n";
+            textContent += "Log ID\tTimestamp\tEvent Type\tDescription\n"; // Text file header
+
+            logData.forEach((log) => {
+                const row = `${log.id}\t${log.timestamp}\t${log.eventType}\t${log.description}`;
+                textContent += row + "\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const downloadLink = document.getElementById('download-link-txt');
+            downloadLink.setAttribute('href', url);
+        }
+
+        // Display logs when the page loads
+        window.onload = displayLogs;
+    </script>
+</body>
+</html>

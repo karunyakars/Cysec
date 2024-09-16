@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Page</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('studentinstructor.png'); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333; /* Ensure text is readable */
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent background for readability */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .add-course-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-course-button:hover {
+            background-color: #45a049;
+        }
+
+        .courses-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(50% - 20px); /* Two columns with gap */
+            box-sizing: border-box;
+        }
+
+        .course-video-container {
+            margin-bottom: 10px;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-video-container iframe,
+        .course-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .course-details {
+            margin-top: 10px;
+        }
+
+        .course-card h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .course-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .course-card button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .course-card button:hover {
+            background-color: #0056b3;
+        }
+
+        .course-card .delete-button {
+            background-color: #f44336;
+        }
+
+        .course-card .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Courses</h1>
+            <button class="add-course-button" onclick="addCourse()">Search New Course</button>
+        </div>
+        <div id="courses-container" class="courses-grid">
+            <!-- Courses will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data for courses including video URLs, titles, and descriptions
+        const coursesData = [
+            {
+                title: "Data Science Crash Course",
+                description: "Learn the fundamentals of data science, including data analysis, visualization, and machine learning.",
+                video: "data science.mp4"
+            },
+            {
+                title: "Introduction to Python Programming",
+                description: "Get started with Python, one of the most popular programming languages for beginners.",
+                video: "python.mp4"
+            },
+            {
+                title: "Machine Learning Fundamentals",
+                description: "Understand the basics of machine learning algorithms and how to implement them.",
+                video: "machine learning.mp4"
+            },
+            {
+                title: "Advanced AI Techniques",
+                description: "Dive deep into advanced AI techniques and how they are applied in the real world.",
+                video: "advanceai.mp4"
+            }
+        ];
+
+        // Function to create a course card element
+        function createCourseCard(course) {
+            const courseCard = document.createElement('div');
+            courseCard.classList.add('course-card');
+
+            // Create course content with a video, title, and description
+            courseCard.innerHTML = `
+                <div class="course-video-container">
+                    <video controls>
+                        <source src="${course.video}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="course-details">
+                    <h2>${course.title}</h2>
+                    <p>${course.description}</p>
+                    <button onclick="editCourse('${course.title}')">Start Learning</button>
+                </div>
+            `;
+
+            return courseCard;
+        }
+
+        // Function to display courses
+        function displayCourses() {
+            const coursesContainer = document.getElementById('courses-container');
+            coursesContainer.innerHTML = ''; // Clear any existing content
+
+            // Loop through the courses data and create course cards
+            coursesData.forEach(course => {
+                const courseCard = createCourseCard(course);
+                coursesContainer.appendChild(courseCard);
+            });
+        }
+
+        // Function to handle adding a new course
+        function addCourse() {
+            const courseTitle = prompt("Enter the title of the new course:");
+            const courseDescription = prompt("Enter a description for the course:");
+            const courseVideo = prompt("Enter the URL for the course video:");
+            if (courseTitle && courseDescription && courseVideo) {
+                coursesData.push({ title: courseTitle, description: courseDescription, video: courseVideo });
+                displayCourses(); // Refresh the course list
+            }
+        }
+        // Display the courses when the page loads
+        window.onload = displayCourses;
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Portal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('studentinstructor.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: rgb(242, 242, 247);
+            text-align: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: rgba(68, 68, 68, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .nav-links {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(85, 85, 85, 0.8);
+        }
+
+        nav .profile {
+            position: relative;
+        }
+
+        nav .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #f2f2f7;
+        }
+
+        .page-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .page-content h2 {
+            margin-top: 0;
+        }
+    </style>
+    <script>
+        function showPage(page) {
+            if (page === 'home') {
+                window.location.href = 'home1.html'; // Redirect to the home page
+            } else if (page === 'course-management') {
+                window.location.href = 'course_management1.html'; // Redirect to the course management page
+            } else if (page === 'student-report') {
+                window.location.href = 'student-report1.html'; // Redirect to the student report page
+            } else if (page === 'under-review') {
+                window.location.href = 'under-review1.html'; // Redirect to the under review page
+            }
+        }
+
+        function showProfileMenu() {
+            window.location.href = 'profile1.html'; // Redirect to the profile page
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Instructor Portal</h1>
+</header>
+
+<nav>
+    <div class="nav-links">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('course-management')">Course Management</a>
+        <a href="#" onclick="showPage('student-report')">Student Report</a>
+        <a href="#" onclick="showPage('under-review')">Under Review</a>
+    </div>
+    <div class="profile">
+        <img src="profile.png" alt="Profile" onclick="showProfileMenu()">
+    </div>
+</nav>
+
+</body>
+</html>

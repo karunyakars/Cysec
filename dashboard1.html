@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('studentinstructor.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: calc(50% - 10px);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            padding: 3px;
+            margin-top: 10px;
+        }
+
+        .progress {
+            background-color: #4caf50;
+            width: 70%; /* Example progress */
+            height: 20px;
+            border-radius: 20px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        ul li a {
+            color: #2196f3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        ul li a:hover {
+            color: #0d47a1;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Student Dashboard</h1>
+    </div>
+
+    <div class="container">
+        <div class="dashboard">
+            <!-- Upcoming Assignments -->
+            <div class="card">
+                <h2>Upcoming Assignments</h2>
+                <div class="list-item">
+                    <span>Math Homework</span>
+                    <span>Due: Sept 25</span>
+                </div>
+                <div class="list-item">
+                    <span>Science Project</span>
+                    <span>Due: Sept 28</span>
+                </div>
+                <div class="list-item">
+                    <span>History Essay</span>
+                    <span>Due: Oct 1</span>
+                </div>
+                <!-- Add more assignments as needed -->
+                <a class="btn" href="#">View All Assignments</a>
+            </div>
+
+            <!-- Recent Announcements -->
+            <div class="card">
+                <h2>Recent Announcements</h2>
+                <div class="list-item">
+                    <span>New Course Materials Available</span>
+                    <span>Sept 20</span>
+                </div>
+                <div class="list-item">
+                    <span>Exam Schedule Released</span>
+                    <span>Sept 18</span>
+                </div>
+                <div class="list-item">
+                    <span>Class Canceled on Oct 2</span>
+                    <span>Sept 15</span>
+                </div>
+                <!-- Add more announcements as needed -->
+                <a class="btn" href="#">View All Announcements</a>
+            </div>
+
+            <!-- Course Progress -->
+            <div class="card">
+                <h2>Course Progress</h2>
+                <canvas id="progressChart" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="card">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#">Course Catalog</a></li>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Profile Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // JavaScript to create a pie chart for course progress
+        var ctx = document.getElementById('progressChart').getContext('2d');
+        var progressChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Mathematics', 'Science', 'History', 'English', 'Art'],
+                datasets: [{
+                    label: 'Course Progress',
+                    data: [70, 50, 85, 40, 60], // Example progress values
+                    backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#e91e63', '#9c27b0'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+    </script>
+</body>
+</html>

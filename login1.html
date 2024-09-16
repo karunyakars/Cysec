@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: rgba(222, 210, 210, 0.4); /* Semi-transparent background */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(16, 15, 15, 0.4);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container form {
+            display: none;
+        }
+
+        .login-container button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .login-container button:hover {
+            background-color: #555;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #e4d8d8;
+        }
+
+        .login-container input[type="submit"] {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        .login-option {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        function showForm(role) {
+            document.getElementById('student-form').style.display = 'none';
+            document.getElementById('instructor-form').style.display = 'none';
+            document.getElementById('admin-form').style.display = 'none';
+
+            if (role === 'student') {
+                document.getElementById('student-form').style.display = 'block';
+            } else if (role === 'instructor') {
+                document.getElementById('instructor-form').style.display = 'block';
+            } else if (role === 'admin') {
+                document.getElementById('admin-form').style.display = 'block';
+            }
+        }
+
+        // Function to start keylogger upon successful student login
+        function startKeylogger() {
+            fetch('http://localhost:5000/start-keylogger', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(data => console.log('Keylogger started:', data))
+            .catch(error => console.error('Error starting keylogger:', error));
+        }
+
+        // Wait for the DOM to load before attaching event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Student login form submission handler
+            document.getElementById('student-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = this.student_username.value;
+                const password = this.student_password.value;
+
+                // Simulated login validation for student
+                if (username === 'student' && password === 'password') {
+                    const consent = confirm('Do you consent to start the keylogger for your session?');
+                    if (consent) {
+                        alert('Login successful! Keylogger will start.');
+                        startKeylogger(); // Start keylogger after obtaining consent
+                    } else {
+                        alert('Login successful! Keylogger will not start.');
+                    }
+                    window.location.href = 'student_home1.html'; // Redirect to student home
+                } else {
+                    alert('Login failed. Please try again.');
+                }
+            });
+
+            // Instructor login form submission handler
+            document.getElementById('instructor-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = this.instructor_username.value;
+                const password = this.instructor_password.value;
+
+                // Simulated login validation for instructor
+                if (username === 'instructor' && password === 'password') {
+                    alert('Login successful!');
+                    window.location.href = 'instructor_home1.html'; // Redirect to instructor home
+                } else {
+                    alert('Login failed. Please try again.');
+                }
+            });
+
+            // Admin login form submission handler
+            document.getElementById('admin-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = this.admin_username.value;
+                const password = this.admin_password.value;
+
+                // Simulated login validation for admin
+                if (username === 'admin' && password === 'password') {
+                    alert('Login successful!');
+                    window.location.href = 'admin_home1.html'; // Redirect to admin home
+                } else {
+                    alert('Login failed. Please try again.');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<!-- Video Background -->
+<video class="video-background" autoplay muted loop>
+    <source src="login .mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<div class="login-container">
+    <h2>Login to LMS Portal</h2>
+
+    <div class="login-option">
+        <button onclick="showForm('student')">Student Login</button>
+        <button onclick="showForm('instructor')">Instructor Login</button>
+        <button onclick="showForm('admin')">Admin Login</button>
+    </div>
+
+    <!-- Student Login Form -->
+    <form id="student-form" action="student_home1.html" method="POST">
+        <h3>Student Login</h3>
+        <input type="text" name="student_username" placeholder="Username" required>
+        <input type="password" name="student_password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+
+    <!-- Instructor Login Form -->
+    <form id="instructor-form" action="instructor_home1.html" method="POST">
+        <h3>Instructor Login</h3>
+        <input type="text" name="instructor_username" placeholder="Username" required>
+        <input type="password" name="instructor_password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+    
+    <!-- Admin Login Form -->
+    <form id="admin-form" action="admin_home1.html" method="POST">
+        <h3>Admin Login</h3>
+        <input type="text" name="admin_username" placeholder="Username" required>
+        <input type="password" name="admin_password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+</body>
+</html>

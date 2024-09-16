@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Video Fit with Audio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .play-btn, .get-started-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background-color: #2788e2;
+            color: #000000;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-btn {
+            display: block;
+        }
+
+        .get-started-btn {
+            display: none; /* Initially hidden */
+        }
+
+        .play-btn:hover, .get-started-btn:hover {
+            background-color: #4f5b63;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="backgroundVideo" class="background-video">
+            <source src="intro_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <audio id="backgroundAudio">
+            <source src="audio-track.mp3" type="audio/mp3">
+            Your browser does not support the audio tag.
+        </audio>
+        <button class="play-btn" id="playBtn">Play</button>
+        <button class="get-started-btn" id="getStartedBtn">Get Started</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('backgroundVideo');
+        const audio = document.getElementById('backgroundAudio');
+        const playButton = document.getElementById('playBtn');
+        const getStartedButton = document.getElementById('getStartedBtn');
+
+        // Play video and audio with sound on button click
+        playButton.addEventListener('click', function() {
+            video.play();
+            audio.play(); // Play the audio
+            playButton.style.display = 'none'; // Hide play button
+        });
+
+        // Show "Get Started" button after video ends
+        video.onended = function() {
+            getStartedButton.style.display = 'block'; // Show button when video ends
+            audio.pause(); // Pause audio when video ends
+            audio.currentTime = 0; // Reset audio to the beginning
+        };
+
+        // Navigate to "first1.html" page when the button is clicked
+        getStartedButton.addEventListener('click', function() {
+            window.location.href = 'first1.html'; // Replace with your target page URL
+        });
+    </script>
+</body>
+</html>

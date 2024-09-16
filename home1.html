@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Styling for the video background */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1;
+        }
+
+        /* Styling the header and navigation bar */
+        .navbar {
+            background-color: rgba(51, 51, 51, 0.8); /* Make the navbar slightly transparent */
+            overflow: hidden;
+            padding: 14px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            margin-left: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #fcfbfb;
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Content section styling */
+        .content {
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 80px;
+            color: white;
+        }
+
+        .content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color:white
+        }
+
+        /* Overlay to darken the video background */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Adjust the opacity to make the content more readable */
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video class="bg-video" autoplay muted loop>
+        <source src="login .mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay to darken the video -->
+    <div class="overlay"></div>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="help1.html">Help</a>
+        <a href="login1.html">Login</a>
+        <a href="settings1.html">Settings</a>
+        <a href="profile1.html">Profile</a>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <h1>SCHOLAR GUARD</h1>
+        <p>Scholar Guard is a robust LMS portal designed to protect your academic integrity with advanced security features. The motto "YOU TRAP WE TRAP" encapsulates its proactive stance against dishonest practices. With cutting-edge keylogger detection and monitoring capabilities, Scholar Guard ensures that any attempt to compromise the system or engage in unethical behavior is swiftly identified and addressed. The platform stands as a vigilant guardian, maintaining a secure and fair learning environment for all users, where mutual responsibility and vigilance are key to upholding academic excellence.</p>
+        <h2>You Tap We Trap</h2>
+    </div>
+
+</body>
+</html>
